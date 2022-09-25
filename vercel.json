@@ -15,7 +15,7 @@
         }
     ],
     "env": {
-        "APP_KEY": "base64:RwOdy+Y/qkr1OQ410z8ljPsidbOOheOTvlksmYpFFWU=",
+        "APP_KEY": "base64:k4rSsvcESXkS3GjPuSlTAYUT0Ts4vlWLjO2JDSDM71w=",
         "APP_NAME": "Acervo Digital",
         "APP_ENV": "production",
         "APP_DEBUG": "true",
@@ -40,8 +40,6 @@
         "MAIL_ENCRYPTION": "null",
         "MAIL_FROM_ADDRESS": "acervo@digital.com",
         "MAIL_FROM_NAME": "Acervo Digital"
-    },
-    "devCommand": "npm run dev",
-    "buildCommand": "npm run build"
+    }
 }
 
