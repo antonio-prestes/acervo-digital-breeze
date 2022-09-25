@@ -10,5 +10,4 @@
 <x-features></x-features>
 <x-footer></x-footer>
 </body>
-<script src="https://cdn.tailwindcss.com"></script>
 </html>
