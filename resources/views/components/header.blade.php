@@ -5,7 +5,7 @@
             <div class="flex justify-start lg:w-0 lg:flex-1">
                 <a href="/">
                     <span class="sr-only">Your Company</span>
-                    <img class="h-8 w-auto sm:h-10" src="{{url('storage/books.svg')}}" alt="">
+                    <x-application-logo/>
                 </a>
             </div>
             <nav class="hidden space-x-10 md:flex">
