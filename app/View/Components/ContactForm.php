@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class contactForm extends Component
+class ContactForm extends Component
 {
     /**
      * Create a new component instance.
