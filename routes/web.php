@@ -27,10 +27,13 @@ Route::post('/contact', [ContactController::class, 'create'])->name('contact.cre
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-Route::get('/collection', function () {
-    return view('collection');
-})->middleware(['auth'])->name('collection');
-Route::get('/collection/create', [ItensController::class, 'create'])->middleware(['auth'])->name('collection.create');
+
+Route::controller(ItensController::class)->middleware(['auth'])->group(function (){
+    Route::get('/collection', 'index')->name('collection');
+    Route::get('/collection/create', 'create')->name('collection.create');
+    Route::post('/collection/create', 'store')->name('collection.store');
+});
+
 Route::get('/users', function () {
     return view('users');
 })->middleware(['auth'])->name('users');

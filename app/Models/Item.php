@@ -13,12 +13,19 @@ class Item extends Model
     protected $table = 'itens';
 
     protected $fillable = [
-        'user',
+        'user_id',
         'title',
         'description',
-        'category',
+        'category_id',
+        'status_id',
         'author',
         'publishing_company',
-        'cover_url'
+        'img_url',
+        'img_name'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }
