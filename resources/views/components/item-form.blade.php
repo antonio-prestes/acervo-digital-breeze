@@ -42,10 +42,10 @@
                 <input type="file" name="img_url" id="img_url">
             </div>
             <div class="flex justify-end items-end mt-10">
-                <x-primary-button class="ml-3" style="background: red">
-                    {{ __('Cancelar') }}
-                </x-primary-button>
                 <div class="item w-52 h-32">
+                    <x-primary-button class="ml-3" style="background: red">
+                        {{ __('Cancelar') }}
+                    </x-primary-button>
                     <x-primary-button class="ml-3 bg-green-600 hover:bg-green-700">
                         {{ __('Salvar') }}
                     </x-primary-button>
