@@ -15,7 +15,7 @@
             <td>{{$item->title}}</td>
             <td>{{$item->author}}</td>
             <td>{{$item->category->name}}</td>
-            <td>{{$item->status_id}}</td>
+            <td>{{$item->status->name}}</td>
         </tr>
     @empty
         <tr></tr>

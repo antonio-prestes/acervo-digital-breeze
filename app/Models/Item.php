@@ -28,4 +28,8 @@ class Item extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id', 'id');
+    }
 }

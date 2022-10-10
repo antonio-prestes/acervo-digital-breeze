@@ -36,6 +36,7 @@
             </div>
         </div>
         <div class="item w-32 h-32 ml-8" style="width: 500px">
+            @csrf
             <div>
                 <x-input-label for="img_url" :value="__('Capa')"/>
                 <input type="file" name="img_url" id="img_url">
