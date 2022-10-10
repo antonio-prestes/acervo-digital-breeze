@@ -31,6 +31,7 @@ class ItensController extends Controller
         $data = $request->validated();
 
         $path = $request->file('img_url')->store('images', 's3');
+        Storage::disk('s3')->setVisibility($path, 'public');
 
 
         try {
