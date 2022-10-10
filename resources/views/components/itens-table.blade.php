@@ -1,5 +1,5 @@
 <table
-    class='max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden mt-5 shadow'>
+    class='max-w-6xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden mt-5 shadow'>
     <thead class="bg-gray-100 shadow">
     <tr class="text-black text-center" style="height: 45px">
         <th class="text-base font-medium text-gray-500 hover:text-gray-900">Capa</th>
@@ -20,15 +20,22 @@
                      margin: 4px auto 4px auto;
                      "
                 />
-            <td>{{$item->title}}</td>
+            <td class="font-semibold">{{$item->title}}</td>
             <td>{{$item->author}}</td>
             <td>{{$item->category->name}}</td>
-            <td>{{$item->status->name}}</td>
             <td>
-                <a href="" style="color: blue">Editar</a>
+                <span class="text-sm font-medium py-1 px-2 rounded align-middle text-gray-800 text-opacity-90
+                {{ $item->status->name === 'Disponível' ? 'bg-green-100' : '' }}
+                {{ $item->status->name === 'Não localizado' ? 'text-red-500 bg-red-100' : '' }}
+                {{ $item->status->name === 'Emprestado' ? 'text-yellow-500 bg-yellow-100' : '' }}">
+                    {{$item->status->name}}
+                </span>
             </td>
             <td>
-                <a href="" style="color: red">Excluir</a>
+                <a href="" class="text-blue-700 font-semibold" >Editar</a>
+            </td>
+            <td>
+                <a href="" class="text-red-700 font-semibold">Excluir</a>
             </td>
         </tr>
     @empty

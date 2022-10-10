@@ -42,13 +42,13 @@
                 <input type="file" name="img_url" id="img_url">
             </div>
             <div class="flex justify-end items-end mt-10">
-                <div class="item w-52 h-32">
-                    <a href="{{route('collection')}}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring disabled:opacity-25 transition ease-in-out duration-150'" style="background: red">
+                <div class="item">
+                    <a href="{{route('collection')}}" class="bg-red-500 hover:bg-red-400 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring disabled:opacity-25 transition ease-in-out duration-150'" >
                         Cancelar
                     </a>
                 </div>
-                <div class="item w-52 h-32">
-                    <x-primary-button class="ml-3">
+                <div class="item ml-20">
+                    <x-primary-button class="ml-3 bg-green-700 hover:bg-green-600">
                         {{ __('Salvar') }}
                     </x-primary-button>
                 </div>
