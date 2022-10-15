@@ -6,6 +6,7 @@ use App\Http\Requests\CollectionRequest;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
@@ -41,10 +42,17 @@ class ItensController extends Controller
                     'img_name' => $path
                 ]
             );
-
-            return redirect(route('collection'))->with('success', 'Item criado com Sucesso!');
+            Session::flash('message','Item adicionado com Sucesso!');
+            return redirect(route('collection'));
         } catch (RuntimeException $e) {
-        dd('Whoops: ' . $e->getMessage());
+            dd('Whoops: ' . $e->getMessage());
+        }
     }
+
+    public function delete($id)
+    {
+        Item::findOrFail($id)->delete();
+        Session::flash('message','Item excluido com Sucesso!');
+        return redirect(route('collection'));
     }
 }

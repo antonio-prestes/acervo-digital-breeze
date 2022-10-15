@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItensController;
@@ -24,14 +25,15 @@ Route::get('/login', function () {
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'create'])->name('contact.create');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::controller(DashboardController::class)->middleware(['auth'])->group(function (){
+    Route::get('/dashboard', 'index')->name('dashboard');
+});
 
 Route::controller(ItensController::class)->middleware(['auth'])->group(function (){
     Route::get('/collection', 'index')->name('collection');
     Route::get('/collection/create', 'create')->name('collection.create');
     Route::post('/collection/create', 'store')->name('collection.store');
+    Route::get('/collection/delete/{id}', 'delete')->name('collection.delete');
 });
 
 Route::get('/users', function () {

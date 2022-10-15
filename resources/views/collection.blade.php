@@ -9,6 +9,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-app-menu :url="'collection/create'"></x-app-menu>
+                    @if(Session::has('message'))
+                        @if(Session::has('message'))
+                            <div class="px-6 py-4 mb-5 bg-green-50 rounded-lg text-green-700">
+                                <span>{{Session::get('message')}}</span>
+                            </div>
+                        @endif
+                    @endif
                     <x-itens-table :itens="$itens"/>
                 </div>
             </div>
