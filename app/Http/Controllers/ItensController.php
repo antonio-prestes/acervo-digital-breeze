@@ -22,8 +22,9 @@ class ItensController extends Controller
     {
         $categories = DB::table('category')->get();
         $status = DB::table('status')->get();
+        $item = null;
 
-        return view('collection_create', ['categories' => $categories, 'status' => $status]);
+        return view('collection_create', ['categories' => $categories, 'status' => $status, 'item' => $item, 'title' => 'Adicionar Item']);
     }
 
     public function store(CollectionRequest $request)
@@ -42,7 +43,7 @@ class ItensController extends Controller
                     'img_name' => $path
                 ]
             );
-            Session::flash('message','Item adicionado com Sucesso!');
+            Session::flash('message', 'Item adicionado com Sucesso!');
             return redirect(route('collection'));
         } catch (RuntimeException $e) {
             dd('Whoops: ' . $e->getMessage());
@@ -52,7 +53,29 @@ class ItensController extends Controller
     public function delete($id)
     {
         Item::findOrFail($id)->delete();
-        Session::flash('message','Item excluido com Sucesso!');
+        Session::flash('message', 'Item excluido com Sucesso!');
+        return redirect(route('collection'));
+    }
+
+    public function edit($id)
+    {
+        $item = Item::findOrFail($id);
+        $categories = DB::table('category')->get();
+        $status = DB::table('status')->get();
+
+        return view('collection_create', ['categories' => $categories, 'status' => $status, 'item' => $item, 'title' => 'Editar Item']);
+    }
+
+    public function update(CollectionRequest $request, $id)
+    {
+        $data = $request->validated();
+        $path = $request->file('img_url')->store('images', 's3');
+        $item = Item::where('id', $id)->update($data + [
+                'img_url' => Storage::disk('s3')->url($path),
+                'img_name' => $path
+            ]);
+
+        Session::flash('message', 'Item editado com Sucesso!');
         return redirect(route('collection'));
     }
 }

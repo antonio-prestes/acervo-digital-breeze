@@ -32,7 +32,7 @@
                 </span>
             </td>
             <td>
-                <a href="" class="text-blue-700 font-semibold">Editar</a>
+                <a href="{{route('collection.edit', $item->id)}}" class="text-blue-700 font-semibold">Editar</a>
             </td>
             <td>
                 <a href="{{route('collection.delete', $item->id)}}"

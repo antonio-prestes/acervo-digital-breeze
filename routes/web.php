@@ -34,6 +34,8 @@ Route::controller(ItensController::class)->middleware(['auth'])->group(function 
     Route::get('/collection/create', 'create')->name('collection.create');
     Route::post('/collection/create', 'store')->name('collection.store');
     Route::get('/collection/delete/{id}', 'delete')->name('collection.delete');
+    Route::get('/collection/edit/{id}', 'edit')->name('collection.edit');
+    Route::put('/collection/update/{id}', 'update')->name('collection.update');
 });
 
 Route::get('/users', function () {

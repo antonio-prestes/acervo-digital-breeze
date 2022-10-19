@@ -8,15 +8,18 @@ class ItemForm extends Component
 {
     public $categories;
     public $status;
+    public $item;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($categories, $status)
+    public function __construct($categories, $status, $item)
     {
         $this->categories = $categories;
         $this->status = $status;
+        $this->item = $item;
+
     }
 
     /**
