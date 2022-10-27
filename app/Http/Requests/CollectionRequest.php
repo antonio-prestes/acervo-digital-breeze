@@ -29,7 +29,9 @@ class CollectionRequest extends FormRequest
             'title' => ['required'],
             'author' => ['required'],
             'publishing_company' => ['required'],
-            'description' => ['required']
+            'description' => ['required'],
+            //TODO alterar as msg de erro padrão
+            'img_url' => ['dimensions:min_width=500,max_width=1500']
         ];
     }
 }
