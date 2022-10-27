@@ -69,11 +69,16 @@ class ItensController extends Controller
     public function update(CollectionRequest $request, $id)
     {
         $data = $request->validated();
-        $path = $request->file('img_url')->store('images', 's3');
-        $item = Item::where('id', $id)->update($data + [
-                'img_url' => Storage::disk('s3')->url($path),
-                'img_name' => $path
-            ]);
+
+        if ($request->file('img_url')) {
+            $path = $request->file('img_url')->store('images', 's3');
+            $item = Item::where('id', $id)->update($data + [
+                    'img_url' => Storage::disk('s3')->url($path),
+                    'img_name' => $path
+                ]);
+        }
+
+        Item::where('id', $id)->update($data);
 
         Session::flash('message', 'Item editado com Sucesso!');
         return redirect(route('collection'));
