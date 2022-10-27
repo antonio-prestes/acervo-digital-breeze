@@ -1,3 +1,14 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <div class="px-6 py-4 mb-5 bg-red-50 rounded-lg text-red-700">
+                    <span>{{ $error }}</span>
+                </div>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ isset($item) ? route('collection.update', $item->id) : route('collection.store')}}" method="POST"
       enctype="multipart/form-data">
     <div class="flex">
