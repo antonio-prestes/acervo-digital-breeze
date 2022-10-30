@@ -66,8 +66,8 @@
             <div>
                 <img src="{{ isset($item->img_url) ? $item->img_url : '' }}" alt="" class="shadow" width="200px"
                      style="display: block; margin: 4px auto 4px auto;"/>
-                <x-input-label for="img_url" :value="__('Capa')"/>
-                <input type="file" name="img_url" id="img_url">
+                <x-input-label for="img" :value="__('Capa')"/>
+                <input type="file" name="img" id="img">
             </div>
             <div class="flex justify-end items-end mt-10">
                 <div class="item">

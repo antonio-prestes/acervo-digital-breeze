@@ -32,7 +32,7 @@ class ItensController extends Controller
         $userId = Auth::user()->id;
         $data = $request->validated();
 
-        $path = $request->file('img_url')->store('images', 's3');
+        $path = $request->file('img')->store('images', 's3');
 
 
         try {
@@ -40,7 +40,7 @@ class ItensController extends Controller
                 [
                     'user_id' => $userId,
                     'img_url' => Storage::disk('s3')->url($path),
-                    'img_name' => $path
+                    'img' => $path
                 ]
             );
             Session::flash('message', 'Item adicionado com Sucesso!');
@@ -70,11 +70,11 @@ class ItensController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->file('img_url')) {
-            $path = $request->file('img_url')->store('images', 's3');
+        if ($request->file('img')) {
+            $path = $request->file('img')->store('images', 's3');
             $item = Item::where('id', $id)->update($data + [
                     'img_url' => Storage::disk('s3')->url($path),
-                    'img_name' => $path
+                    'img' => $path
                 ]);
         }
 

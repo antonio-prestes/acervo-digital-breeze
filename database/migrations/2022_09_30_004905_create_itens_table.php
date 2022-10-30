@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('status_id');
             $table->string('author');
             $table->string('publishing_company');
-            $table->string('img_name');
+            $table->string('img');
             $table->string('img_url');
 
             $table->foreign('category_id')->references('id')->on('category');

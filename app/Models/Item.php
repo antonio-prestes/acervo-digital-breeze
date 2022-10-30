@@ -21,7 +21,7 @@ class Item extends Model
         'author',
         'publishing_company',
         'img_url',
-        'img_name'
+        'img'
     ];
 
     public function category()
