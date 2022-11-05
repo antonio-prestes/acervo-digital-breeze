@@ -25,11 +25,11 @@ Route::get('/login', function () {
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'create'])->name('contact.create');
 
-Route::controller(DashboardController::class)->middleware(['auth'])->group(function (){
+Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function (){
     Route::get('/dashboard', 'index')->name('dashboard');
 });
 
-Route::controller(ItensController::class)->middleware(['auth'])->group(function (){
+Route::controller(ItensController::class)->middleware(['auth', 'verified'])->group(function (){
     Route::get('/collection', 'index')->name('collection');
     Route::get('/collection/create', 'create')->name('collection.create');
     Route::post('/collection/create', 'store')->name('collection.store');
