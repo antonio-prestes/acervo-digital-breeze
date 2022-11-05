@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Controllers;
 
 use App\Http\Controllers\ContactController;
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactMail;
-use Illuminate\Mail\Mailer;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
