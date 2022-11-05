@@ -1,6 +1,6 @@
 <div class="py-12">
-    <div class="max-w-sm sm:px-6 lg:px-8 ml-[200px]">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg shadow">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg shadow w-1/4">
             <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
                 <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItensController;
@@ -38,8 +39,8 @@ Route::controller(ItensController::class)->middleware(['auth', 'verified'])->gro
     Route::put('/collection/update/{id}', 'update')->name('collection.update');
 });
 
-Route::get('/users', function () {
-    return view('users');
-})->middleware(['auth'])->name('users');
+Route::controller(UsersController::class)->middleware(['auth', 'verified'])->group(function (){
+    Route::get('/users', 'index')->name('users');
+});
 
 require __DIR__.'/auth.php';
