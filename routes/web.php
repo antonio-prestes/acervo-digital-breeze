@@ -41,6 +41,7 @@ Route::controller(ItensController::class)->middleware(['auth', 'verified'])->gro
 
 Route::controller(UsersController::class)->middleware(['auth', 'verified'])->group(function (){
     Route::get('/users', 'index')->name('users');
+    Route::get('/users/create', 'create')->name('users.create');
 });
 
 require __DIR__.'/auth.php';

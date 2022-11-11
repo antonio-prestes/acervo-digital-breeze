@@ -18,9 +18,11 @@
                     <x-nav-link :href="route('collection')" :active="request()->routeIs('collection')">
                         {{ __('Acervo') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                        {{ __('Usuários') }}
-                    </x-nav-link>
+                    @if(Auth::user()->isAdministrator())
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                            {{ __('Usuários') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

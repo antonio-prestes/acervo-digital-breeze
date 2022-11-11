@@ -1,6 +1,6 @@
 <table
     class='max-w-6xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden shadow'>
-    <thead class="bg-gray-100 shadow">
+    <thead class="bg-gray-100 shadow h-10">
     <tr class="text-black text-center" style="height: 45px">
         <th class="text-base font-medium text-gray-500 hover:text-gray-900">Capa</th>
         <th class="text-base font-medium text-gray-500 hover:text-gray-900">Titulo</th>
