@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use RuntimeException;
 
 class UsersController extends Controller
 {
@@ -15,7 +22,10 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('users', compact('users'));
+        $itensCount = Item::all();
+        return view('users')
+            ->with('users', $users)
+            ->with('itens', $itensCount);
     }
 
     /**
@@ -25,23 +35,38 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('user_create', [
-            'title' => 'Adicionar Usuário',
-            'categories' => '',
-            'status' => '',
-            'item' => ''
-        ]);
+        return view('user_create')
+            ->with('user', null)
+            ->with('title', 'Adicionar Usuário');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $request->validated();
+
+        $path = null;
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->storePublicly('pictures');
+        }
+
+        try {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'picture' => $path
+            ]);
+            Session::flash('message', 'Usuário adicionado com Sucesso!');
+            return redirect(route('users'));
+        } catch (RuntimeException $e) {
+            dd('Whoops: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -63,7 +88,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('user_create', ['user' => $user, 'title' => 'Editar usuário']);
     }
 
     /**
@@ -73,19 +100,37 @@ class UsersController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, int $id)
     {
-        //
+        $user = $request->validated();
+        $updatUser = User::findOrFail($id);
+
+        $path = $updatUser->picture;
+
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->storePublicly('pictures');
+        }
+        $updatUser->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'picture' => $path
+        ])->save();
+
+        Session::flash('message', 'Usuário editado com Sucesso!');
+        return redirect(route('users'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
+        Session::flash('message', 'Item excluido com Sucesso!');
+        return redirect(route('users'));
     }
 }

@@ -10,7 +10,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-app-menu :url="'users/create'"></x-app-menu>
-                    <x-users-table :users="$users"></x-users-table>
+                    @if(Session::has('message'))
+                        @if(Session::has('message'))
+                            <div class="px-6 py-4 mb-5 bg-green-50 rounded-lg text-green-700">
+                                <span>{{Session::get('message')}}</span>
+                            </div>
+                        @endif
+                    @endif
+                    <x-users-table :users="$users" :itens="$itens"></x-users-table>
                 </div>
             </div>
         </div>

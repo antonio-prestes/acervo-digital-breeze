@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class UsersTable extends Component
 {
     public $users;
+    public $itens;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($users)
+    public function __construct($users, $itens)
     {
         $this->users = $users;
+        $this->itens = $itens;
     }
 
     /**

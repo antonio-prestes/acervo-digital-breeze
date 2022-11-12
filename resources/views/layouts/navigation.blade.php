@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('collection')" :active="request()->routeIs('collection')">
                         {{ __('Acervo') }}
                     </x-nav-link>
-                    @if(Auth::user()->isAdministrator())
+                    @if(Auth::user()->profile == 'admin')
                         <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
                             {{ __('Usuários') }}
                         </x-nav-link>
@@ -31,7 +31,14 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                                   <div class="flex items-center">
+                                       @if(Auth::user()->picture)
+                                           <img src="{{ Auth::user()->picture }}" alt="" class="w-10 h-10 rounded-full object-cover mr-2">
+                                       @else
+                                           <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?b=1&s=612x612&w=0&k=20&c=IJ1HiV33jl9wTVpneAcU2CEPdGRwuZJsBs_92uk_xNs=" alt="" class="w-10 h-10 rounded-full object-cover mr-2">
+                                       @endif
+                                           {{ Auth::user()->name }}
+                                   </div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -49,7 +56,10 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Sair') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{route('users.edit', Auth::user()->id)}}">
+                                {{ __('Perfil') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>

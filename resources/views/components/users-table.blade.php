@@ -15,21 +15,24 @@
     @forelse($users as $user)
         <tr class="text-center h-3">
             <td>
-                <img src="https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg"
-                     alt=""
-                     class="shadow rounded-full mx-auto block w-14 h-14 mt-2 mb-2"/>
+                @if($user->picture)
+                    <img src="{{ $user->picture }}" alt="" class="shadow rounded-full mx-auto block w-14 h-14 mt-2 mb-2">
+                @else
+                    <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?b=1&s=612x612&w=0&k=20&c=IJ1HiV33jl9wTVpneAcU2CEPdGRwuZJsBs_92uk_xNs=" alt="" class="shadow rounded-full mx-auto block w-14 h-14 mt-2 mb-2">
+                @endif
             <td class="text-start">
                 <p class="font-bold">{{$user->name}}</p>
                 <p class="font-light">{{$user->email}}</p>
             </td>
-            <td>{{$user->email}}</td>
+            <td>{{$itens->where('user_id', $user->id)->count()}}</td>
             <td>{{$user->profile}}</td>
             <td>link do acervo</td>
             <td>
-                <a href="" class="text-blue-700 font-semibold">Editar</a>
+                <a href="{{route('users.edit', $user->id)}}"
+                   class="text-blue-700 font-semibold">Editar</a>
             </td>
             <td>
-                <a href=""
+                <a href="{{route('users.delete', $user->id)}}"
                    class="text-red-700 font-semibold" onclick="return confirm('Are you sure?')">Excluir</a>
             </td>
         </tr>

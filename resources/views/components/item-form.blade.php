@@ -45,7 +45,7 @@
                 </select>
                 <x-input-label for="title" :value="__('Titulo')"/>
                 <x-text-input id="title" class="block mt-1 w-full" type="text" name="title"
-                              value="{{ isset($item->title) ? $item->title : '' }}" required autofocus/>
+                              value="{{ isset($item->title) ? $item->title : '' }}" required autofocus></x-text-input>
                 <x-input-label for="author" :value="__('Autor')"/>
                 <x-text-input id="author" class="block mt-1 w-full" type="text" name="author"
                               value="{{ isset($item->author) ? $item->author : '' }}" required autofocus/>
@@ -71,12 +71,13 @@
             </div>
             <div class="flex justify-end items-end mt-10">
                 <div class="item">
-                    <a href="{{route('collection')}}"
-                       class="bg-red-500 hover:bg-red-400 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring disabled:opacity-25 transition ease-in-out duration-150'">
-                        Cancelar
+                    <a href="{{route('collection')}}">
+                    <x-primary-button class="ml-3 bg-red-700 hover:bg-red-600" type="button">
+                        {{ __('Cancelar') }}
+                    </x-primary-button>
                     </a>
                 </div>
-                <div class="item ml-20">
+                <div>
                     <x-primary-button class="ml-3 bg-green-700 hover:bg-green-600">
                         @if(isset($item))
                             {{ __('Editar') }}

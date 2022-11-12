@@ -9,9 +9,15 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
+            <!-- Picture -->
+            <div>
+            <x-input-label for="picture" :value="__('Avatar')" />
+
+            <x-picture-input></x-picture-input>
+            </div>
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />

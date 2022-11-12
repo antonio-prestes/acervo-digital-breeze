@@ -39,9 +39,16 @@ Route::controller(ItensController::class)->middleware(['auth', 'verified'])->gro
     Route::put('/collection/update/{id}', 'update')->name('collection.update');
 });
 
-Route::controller(UsersController::class)->middleware(['auth', 'verified'])->group(function (){
+Route::controller(UsersController::class)->middleware(['auth', 'verified', 'isAdmin'])->group(function (){
     Route::get('/users', 'index')->name('users');
     Route::get('/users/create', 'create')->name('users.create');
+    Route::post('/users/create', 'store')->name('users.store');
+    Route::get('/users/delete/{id}', 'destroy')->name('users.delete');
+});
+
+Route::controller(UsersController::class)->middleware(['auth', 'verified'])->group(function (){
+    Route::get('/users/edit/{id}', 'edit')->name('users.edit');
+    Route::put('/users/update/{id}', 'update')->name('users.update');
 });
 
 require __DIR__.'/auth.php';

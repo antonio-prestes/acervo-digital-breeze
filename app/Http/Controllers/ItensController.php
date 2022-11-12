@@ -16,7 +16,7 @@ class ItensController extends Controller
     {
         $userId = Auth::user()->id;
 
-        Auth::user()->isAdministrator() ? $itens = Item::all() : $itens = Item::where('user_id', $userId)->get();
+        Auth::user()->profile == 'admin' ? $itens = Item::all() : $itens = Item::where('user_id', $userId)->get();
 
         return view('collection', compact('itens'));
     }
