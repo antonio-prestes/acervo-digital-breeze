@@ -103,10 +103,10 @@ class UsersController extends Controller
         $user = $request->validated();
         $updatUser = User::findOrFail($id);
 
-        $path = $updatUser->picture;
-
         if ($request->hasFile('picture')) {
             $path = $request->file('picture')->store('avatar', 's3');
+        } else {
+            $path = $updatUser->picture;
         }
         $updatUser->fill([
             'name' => $request->name,
