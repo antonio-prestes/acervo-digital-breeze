@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class DashCard extends Component
 {
     public $itens;
+    public $users;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($itens)
+    public function __construct($itens, $users)
     {
         $this->itens = $itens;
+        $this->users = $users;
     }
 
     /**

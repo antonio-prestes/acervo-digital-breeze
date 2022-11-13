@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <x-dash-card :itens="$itens"/>
+    <x-dash-card :itens="$itens" :users="$users"/>
 
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
