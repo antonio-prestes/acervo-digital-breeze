@@ -20,7 +20,7 @@
                 <div>
                     <x-input-label for="picture" :value="__('Avatar')" />
 
-                    <x-picture-input user="{{ $user->picture }}"></x-picture-input>
+                    <x-picture-input user="{{ isset($user->picture) ? $user->picture : '' }}"></x-picture-input>
                 </div>
                 @if(Auth::user()->profile == 'admin')
                 <x-input-label for="profile" :value="__('Perfil')"></x-input-label>
