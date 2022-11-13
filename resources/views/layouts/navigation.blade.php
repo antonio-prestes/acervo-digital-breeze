@@ -52,14 +52,13 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
+                            <x-dropdown-link href="{{route('users.edit', Auth::user()->id)}}">
+                                {{ __('Perfil') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Sair') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="{{route('users.edit', Auth::user()->id)}}">
-                                {{ __('Perfil') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -84,6 +83,14 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-nav-link :href="route('collection')" :active="request()->routeIs('collection')">
+                {{ __('Acervo') }}
+            </x-nav-link>
+            @if(Auth::user()->profile == 'admin')
+                <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                    {{ __('Usuários') }}
+                </x-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -97,11 +104,13 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
+                    <x-dropdown-link href="{{route('users.edit', Auth::user()->id)}}">
+                        {{ __('Perfil') }}
+                    </x-dropdown-link>
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Sair') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

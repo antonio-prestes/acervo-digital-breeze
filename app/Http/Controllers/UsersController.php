@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\Item;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
 class UsersController extends Controller
@@ -52,7 +50,7 @@ class UsersController extends Controller
 
         $path = null;
         if ($request->hasFile('picture')) {
-            $path = $request->file('picture')->storePublicly('pictures');
+            $path = $request->file('picture')->store('avatar', 's3');
         }
 
         try {
@@ -60,7 +58,7 @@ class UsersController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'picture' => $path
+                'picture' => Storage::disk('s3')->url($path)
             ]);
             Session::flash('message', 'Usuário adicionado com Sucesso!');
             return redirect(route('users'));
@@ -108,13 +106,13 @@ class UsersController extends Controller
         $path = $updatUser->picture;
 
         if ($request->hasFile('picture')) {
-            $path = $request->file('picture')->storePublicly('pictures');
+            $path = $request->file('picture')->store('avatar', 's3');
         }
         $updatUser->fill([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'picture' => $path
+            'picture' => Storage::disk('s3')->url($path)
         ])->save();
 
         Session::flash('message', 'Usuário editado com Sucesso!');
