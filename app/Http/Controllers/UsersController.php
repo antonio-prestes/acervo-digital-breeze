@@ -105,14 +105,15 @@ class UsersController extends Controller
 
         if ($request->hasFile('picture')) {
             $path = $request->file('picture')->store('avatar', 's3');
+            $url = Storage::disk('s3')->url($path);
         } else {
-            $path = $updatUser->picture;
+            $url = $updatUser->picture;
         }
         $updatUser->fill([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'picture' => Storage::disk('s3')->url($path)
+            'picture' => $url
         ])->save();
 
         Session::flash('message', 'Usuário editado com Sucesso!');
