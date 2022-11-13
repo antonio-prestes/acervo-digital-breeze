@@ -33,12 +33,7 @@ class CollectionRequest extends FormRequest
             'publishing_company' => ['required'],
             'description' => ['required'],
             //TODO alterar as msg de erro padrão
-            'img' => [
-                File::image()
-                    ->min(1)
-                    ->max(12 * 1024)
-                    ->dimensions(Rule::dimensions()->maxWidth(5000)->maxHeight(5000)),
-            ],
+            'img' => ['file', 'mimes:jpeg,png,gif', 'max:3072'],
         ];
     }
 }

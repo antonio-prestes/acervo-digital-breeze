@@ -12,7 +12,7 @@ class DashboardControllerTest extends TestCase
         return User::factory()->create();
     }
 
-    public function testAccessDashboardPage()
+    public function testAdminAccessDashboardPage()
     {
         $user = $this->authorize();
         $response = $this->actingAs($user)->get('/dashboard');

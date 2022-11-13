@@ -1,7 +1,7 @@
 <div class="flex items-center" x-data="picturePreview()">
     <div class="rounded-full bg-gray-200 mr-2">
         <img id="preview"
-             @if($user)
+             @if(isset($user))
                  src="{{ URL::to($user) }}"
              @else
                  src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?b=1&s=612x612&w=0&k=20&c=IJ1HiV33jl9wTVpneAcU2CEPdGRwuZJsBs_92uk_xNs="

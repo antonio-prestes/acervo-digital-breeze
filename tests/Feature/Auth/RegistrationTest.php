@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Testing\File;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -24,6 +25,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'picture' => File::fake()->create('teste.jpg')
         ]);
 
         $this->assertAuthenticated();
