@@ -5,6 +5,7 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItensController;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,10 @@ Route::controller(UsersController::class)->middleware(['auth', 'verified', 'isAd
 Route::controller(UsersController::class)->middleware(['auth', 'verified'])->group(function (){
     Route::get('/users/edit/{id}', 'edit')->name('users.edit');
     Route::put('/users/update/{id}', 'update')->name('users.update');
+});
+
+Route::controller(CollectionController::class)->group(function (){
+    Route::get('/{user}', 'index')->name('collection.index');
 });
 
 require __DIR__.'/auth.php';
