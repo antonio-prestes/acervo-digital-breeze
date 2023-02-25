@@ -34,6 +34,10 @@
                 @endif
             </div>
             <div class="nt-2">
+                <x-input-label for="user" :value="__('Username')"></x-input-label>
+
+                <x-text-input id="user" class="block mt-1 w-full" type="text" name="user" value="{{ isset($user->user) ? $user->user : '' }}" required
+                              autofocus></x-text-input>
                 <x-input-label for="name" :value="__('Nome')"></x-input-label>
 
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ isset($user->name) ? $user->name : '' }}" required
@@ -50,8 +54,7 @@
 
                 <x-text-input id="password" class="block mt-1 w-full"
                               type="password"
-                              name="password"
-                              required autocomplete="new-password"></x-text-input>
+                              name="password"></x-text-input>
             </div>
             <div class="flex justify-end mt-2">
                 <div class="">

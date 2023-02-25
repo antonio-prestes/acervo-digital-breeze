@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class CollectionList extends Component
 {
+    public $collection;
+    public $categories;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($collection, $categories)
     {
-        //
+        $this->collection = $collection;
+        $this->categories = $categories;
     }
 
     /**

@@ -18,6 +18,12 @@
 
             <x-picture-input></x-picture-input>
             </div>
+            <!-- User -->
+            <div>
+                <x-input-label for="user" :value="__('Username')" />
+
+                <x-text-input id="user" class="block mt-1 w-full" type="text" name="user" :value="old('user')" required autofocus />
+            </div>
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />

@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\Item;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +20,7 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -29,7 +34,7 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -41,8 +46,8 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param UserRequest $request
+     * @return RedirectResponse
      */
     public function store(UserRequest $request)
     {
@@ -71,9 +76,9 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function show($id)
+    public function show(int $id): void
     {
         //
     }
@@ -82,9 +87,9 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): View|Factory|Application
     {
         $user = User::findOrFail($id);
 
@@ -94,27 +99,34 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UserRequest $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Application|RedirectResponse|Redirector
      */
-    public function update(UserRequest $request, int $id)
+    public function update(UserRequest $request, int $id): Redirector|RedirectResponse|Application
     {
         $user = $request->validated();
-        $updatUser = User::findOrFail($id);
+        $updateUser = User::findOrFail($id);
 
         if ($request->hasFile('picture')) {
             $path = $request->file('picture')->store('avatar', 's3');
             $url = Storage::disk('s3')->url($path);
         } else {
-            $url = $updatUser->picture;
+            $url = $updateUser->picture;
         }
-        $updatUser->fill([
+
+        $userToUpdate = [
+            'user' => $request->user,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'picture' => $url
-        ])->save();
+        ];
+
+        if (!empty($request->password)) {
+            $userToUpdate['password'] = Hash::make($request->password);
+        }
+
+        $updateUser->fill($userToUpdate)->save();
 
         Session::flash('message', 'Usuário editado com Sucesso!');
         return redirect(route('users'));
@@ -124,9 +136,9 @@ class UsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|Redirector
      */
-    public function destroy($id)
+    public function destroy(int $id): Redirector|RedirectResponse|Application
     {
         User::findOrFail($id)->delete();
         Session::flash('message', 'Item excluido com Sucesso!');

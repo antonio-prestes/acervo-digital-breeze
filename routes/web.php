@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ItensController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ItensController;
-use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Route::controller(UsersController::class)->middleware(['auth', 'verified'])->gro
 });
 
 Route::controller(CollectionController::class)->group(function (){
-    Route::get('/{user}', 'index')->name('collection.index');
+    Route::get('/{user}/{category?}', 'index')->name('collection.index');
 });
 
 require __DIR__.'/auth.php';

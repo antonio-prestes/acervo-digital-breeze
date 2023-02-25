@@ -9,7 +9,7 @@
 <body>
 <x-header></x-header>
 <x-user-card :user="$user"></x-user-card>
-<x-collection-list></x-collection-list>
+<x-collection-list :collection="$collection" :categories="$categories"></x-collection-list>
 
 </body>
 </html>
