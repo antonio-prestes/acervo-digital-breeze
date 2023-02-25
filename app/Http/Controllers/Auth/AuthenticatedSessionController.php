@@ -4,18 +4,24 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('auth.login');
     }
@@ -23,10 +29,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      *
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
@@ -38,8 +45,8 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function destroy(Request $request)
     {
@@ -50,5 +57,47 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function redirectToFacebook(): RedirectResponse
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback(): RedirectResponse
+    {
+        $facebookUser = Socialite::driver('facebook')->user();
+
+        $user = User::query()->firstOrCreate(['email' => $facebookUser->email], [
+            'name' => $facebookUser->name,
+            'password' => md5($facebookUser->email),
+            'picture' => $facebookUser->getAvatar(),
+            'user' => Str::before($facebookUser->email, '@')
+        ]);
+
+        auth()->login($user);
+
+        return redirect()->route('dashboard');
+    }
+
+    public function redirectToGoogle(): RedirectResponse
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(): RedirectResponse
+    {
+        $googleUser = Socialite::driver('google')->user();
+
+        $user = User::query()->firstOrCreate(['email' => $googleUser->email], [
+            'name' => $googleUser->name,
+            'password' => md5($googleUser->email),
+            'picture' => $googleUser->getAvatar(),
+            'user' => Str::before($googleUser->email, '@')
+        ]);
+
+        auth()->login($user);
+
+        return redirect()->route('dashboard');
     }
 }
