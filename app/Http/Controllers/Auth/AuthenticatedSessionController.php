@@ -59,27 +59,6 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    public function redirectToFacebook(): RedirectResponse
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    public function handleFacebookCallback(): RedirectResponse
-    {
-        $facebookUser = Socialite::driver('facebook')->user();
-
-        $user = User::query()->firstOrCreate(['email' => $facebookUser->email], [
-            'name' => $facebookUser->name,
-            'password' => md5($facebookUser->email),
-            'picture' => $facebookUser->getAvatar(),
-            'user' => Str::before($facebookUser->email, '@')
-        ]);
-
-        auth()->login($user);
-
-        return redirect()->route('dashboard');
-    }
-
     public function redirectToGoogle(): RedirectResponse
     {
         return Socialite::driver('google')->redirect();
@@ -88,6 +67,27 @@ class AuthenticatedSessionController extends Controller
     public function handleGoogleCallback(): RedirectResponse
     {
         $googleUser = Socialite::driver('google')->user();
+
+        $user = User::query()->firstOrCreate(['email' => $googleUser->email], [
+            'name' => $googleUser->name,
+            'password' => md5($googleUser->email),
+            'picture' => $googleUser->getAvatar(),
+            'user' => Str::before($googleUser->email, '@')
+        ]);
+
+        auth()->login($user);
+
+        return redirect()->route('dashboard');
+    }
+
+    public function redirectToGithub(): RedirectResponse
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleGithubCallback(): RedirectResponse
+    {
+        $googleUser = Socialite::driver('github')->user();
 
         $user = User::query()->firstOrCreate(['email' => $googleUser->email], [
             'name' => $googleUser->name,
