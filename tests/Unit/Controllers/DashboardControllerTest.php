@@ -2,20 +2,38 @@
 
 namespace Tests\Unit\Controllers;
 
+use App\Http\Controllers\DashboardController;
+use App\Models\Item;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class DashboardControllerTest extends TestCase
 {
-    private function authorize()
+    use RefreshDatabase;
+
+    public function testIndex()
     {
-        return User::factory()->create();
+        $user = User::factory()->create();
+
+        Auth::login($user);
+
+        $response = $this->get(route('dashboard'));
+
+        $response->assertStatus(200)
+            ->assertSee($user->name);
     }
 
-    public function testAdminAccessDashboardPage()
+    public function testIndexWithAdminUser()
     {
-        $user = $this->authorize();
-        $response = $this->actingAs($user)->get('/dashboard');
-        $response->assertSuccessful();
+        $adminUser = User::factory()->create(['profile' => 'admin']);
+
+        Auth::login($adminUser);
+
+        $response = $this->get(route('dashboard'));
+
+        $response->assertStatus(200)
+            ->assertSee($adminUser->name);
     }
 }
