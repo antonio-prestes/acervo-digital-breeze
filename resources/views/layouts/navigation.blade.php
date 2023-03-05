@@ -52,8 +52,11 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link href="{{route('users.edit', Auth::user()->id)}}">
+                            <x-dropdown-link href="{{ route('users.edit', Auth::user()->id) }}">
                                 {{ __('Perfil') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link href="{{ route('collection.index', Auth::user()->user) }}">
+                                {{ __('Coleção') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();

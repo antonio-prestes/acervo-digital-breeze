@@ -9,6 +9,7 @@
         <th class="text-base font-medium text-gray-500 hover:text-gray-900">Status</th>
         <th class="text-base font-medium text-gray-500 hover:text-gray-900"></th>
         <th class="text-base font-medium text-gray-500 hover:text-gray-900"></th>
+        <th class="text-base font-medium text-gray-500 hover:text-gray-900"></th>
     </tr>
     </thead>
     <tbody class="divide-y divide-gray-100">
@@ -30,6 +31,9 @@
                 {{ $item->status->name === 'Emprestado' ? 'text-yellow-500 bg-yellow-100' : '' }}">
                     {{$item->status->name}}
                 </span>
+            </td>
+            <td>
+                <a href="{{route('collection.item', $item->id)}}" class="text-green-700 font-semibold">Vizualizar</a>
             </td>
             <td>
                 <a href="{{route('collection.edit', $item->id)}}" class="text-blue-700 font-semibold">Editar</a>

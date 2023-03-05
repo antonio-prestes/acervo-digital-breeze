@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\View\View;
+use JetBrains\PhpStorm\NoReturn;
 
 class CollectionController extends Controller
 {
@@ -31,6 +32,18 @@ class CollectionController extends Controller
             'user' => $user,
             'collection' => $collection,
             'categories' => $allCategories,
+            'filteredItems' => $filteredItems,
+        ]);
+    }
+
+    public function item($id)
+    {
+        $item = Item::where('id', $id)->firstOrFail();
+        $user = User::where('id', $item->user_id)->firstOrFail();
+
+        return view('collection_item', [
+            'user' => $user,
+            'item' => $item
         ]);
     }
 }

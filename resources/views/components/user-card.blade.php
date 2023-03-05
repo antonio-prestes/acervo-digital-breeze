@@ -7,8 +7,10 @@
                     <div class="flex flex-col items-center pb-5 mt-5">
                         <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
                              src="{{$user->picture}}"
-                             alt="Bonnie image"/>
-                        <h5 class="mb-1 text-xl font-medium text-gray-900">{{$user->name}}</h5>
+                             alt="Bonnie image"
+                        />
+                        <a href="{{ route('collection.index', $user->user) }}"
+                           class="mb-1 text-xl font-medium text-gray-900">{{$user->name}}</a>
                         <span class="text-sm text-gray-500 dark:text-gray-400">{{$user->user}}</span>
                         <a href="mailto:{{$user->email}}" class="mt-1">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor"

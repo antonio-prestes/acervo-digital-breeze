@@ -8,15 +8,17 @@ class CollectionList extends Component
 {
     public $collection;
     public $categories;
+    public $filteredItems;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($collection, $categories)
+    public function __construct($collection, $categories, $filteredItems)
     {
         $this->collection = $collection;
         $this->categories = $categories;
+        $this->filteredItems = $filteredItems;
     }
 
     /**
