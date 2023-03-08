@@ -11,29 +11,28 @@ use Jorenvh\Share\Share;
 
 class CollectionController extends Controller
 {
-    public $filteredCollection;
+    public $user;
 
-    function index($user, $category = null): View
+    function index($user): View
     {
-        $user = User::where('user', $user)->firstOrFail();
+        $this->user = User::where('user', $user)->firstOrFail();
 
-        $items = Item::where('user_id', $user->id);
+        $items = Item::where('user_id', $this->user->id);
 
         $allCategories = Category::whereIn('id', $items->pluck('category_id'))->get();
 
-        $filteredItems = $items;
+        $categoryCounts = Item::selectRaw('category_id, count(*) as count')
+            ->whereIn('category_id', $allCategories->pluck('id'))
+            ->groupBy('category_id')
+            ->pluck('count', 'category_id');
 
-        if ($category) {
-            $filteredItems = $items->where('category_id', $category);
-        }
-
-        $collection = $filteredItems->paginate(8);
+        $collection = $items->paginate(8);
 
         return view('collection_home', [
-            'user' => $user,
+            'user' => $this->user,
             'collection' => $collection,
             'categories' => $allCategories,
-            'filteredItems' => $filteredItems,
+            'categoryCounts' => $categoryCounts
         ]);
     }
 
@@ -51,6 +50,32 @@ class CollectionController extends Controller
             'user' => $user,
             'item' => $item,
             'shareButtons' => $shareButtons
+        ]);
+    }
+
+    public function category($user, $category)
+    {
+        $user = User::where('user', $user)->firstOrFail();
+
+        $items = Item::where('user_id', $user->id);
+
+        $allCategories = Category::whereIn('id', $items->pluck('category_id'))->get();
+
+        $categoryCounts = Item::selectRaw('category_id, count(*) as count')
+            ->whereIn('category_id', $allCategories->pluck('id'))
+            ->groupBy('category_id')
+            ->pluck('count', 'category_id');
+
+        $filteredItems = $items->where('category_id', $category);
+
+        $collection = $filteredItems->paginate(8);
+
+        return view('collection_home', [
+            'user' => $user,
+            'collection' => $collection,
+            'categories' => $allCategories,
+            'filteredItems' => $filteredItems,
+            'categoryCounts' => $categoryCounts
         ]);
     }
 }

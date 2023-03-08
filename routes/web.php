@@ -54,8 +54,9 @@ Route::controller(UsersController::class)->middleware(['auth', 'verified'])->gro
 });
 
 Route::controller(CollectionController::class)->group(function (){
-    Route::get('collection-item/{item}', 'item')->name('collection.item');
     Route::get('collection/{user?}', 'index')->name('collection.index');
+    Route::get('collection-item/{item}', 'item')->name('collection.item');
+    Route::get('collection/{user}/category/{category}', 'category')->name('collection.category');
 });
 
 require __DIR__.'/auth.php';

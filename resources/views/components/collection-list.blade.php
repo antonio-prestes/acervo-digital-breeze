@@ -102,11 +102,11 @@
                                 <li>
                                     <div class="flex flex-wrap justify-center">
                                         <a class="min-w-0 flex-1 text-gray-500"
-                                           href="{{route('collection.index', ['user' => Route::input('user'), 'category'=> $category->id])}}">{{$category->name}}</a>
+                                           href="{{route('collection.category', ['user' => Route::input('user'), 'category'=> $category->id])}}">{{$category->name}}</a>
                                         <div
                                             class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-gray-700 bg-gray-100 border border-gray-300 ">
                                             <div class="text-xs font-normal leading-none max-w-full flex-initial">
-                                                {{ $filteredItems->where('category_id', $category->id)->count() }}
+                                                {{ $categoryCounts[$category->id] }}
                                             </div>
                                         </div>
                                     </div>
