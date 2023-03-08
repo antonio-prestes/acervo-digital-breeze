@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class CollectionItem extends Component
 {
     public $item;
+    public $shareButtons;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($item)
+    public function __construct($item, $shareButtons)
     {
         $this->item = $item;
+        $this->shareButtons = $shareButtons;
     }
 
     /**

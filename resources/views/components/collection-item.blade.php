@@ -12,6 +12,28 @@
   }
   ```
 -->
+<style>
+    #social-links ul{
+        padding-left: 0;
+    }
+    #social-links ul li {
+        display: inline-block;
+    }
+    #social-links ul li a {
+        padding: 3px;
+        margin: 1px;
+        font-size: 25px;
+    }
+    #social-links .fa-facebook{
+        color: #0d6efd;
+    }
+    #social-links .fa-twitter{
+        color: deepskyblue;
+    }
+    #social-links .fa-whatsapp{
+        color: #25D366
+    }
+</style>
 <div class="bg-white">
     <div>
         <!--
@@ -109,6 +131,7 @@
                                         bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                                             <p class="mt-1 ml-4 mr-4 text-sm text-gray-500"> {{ $item->description }}</p>
                                         </div>
+                                        <span>Compartilhar nas redes sociais: {!! $shareButtons !!}</span>
                                     </div>
                                 </div>
                             </div>

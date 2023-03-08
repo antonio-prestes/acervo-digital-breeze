@@ -26,7 +26,10 @@
             </td>
             <td>{{$itens->where('user_id', $user->id)->count()}}</td>
             <td>{{$user->profile}}</td>
-            <td>link do acervo</td>
+            <td>
+                <a href="{{route('collection.index', $user->user)}}"
+                   class="text-green-700 font-semibold">Acessar coleção</a>
+            </td>
             <td>
                 <a href="{{route('users.edit', $user->id)}}"
                    class="text-blue-700 font-semibold">Editar</a>

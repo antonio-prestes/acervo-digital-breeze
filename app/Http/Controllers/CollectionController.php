@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\User;
 use Illuminate\View\View;
 use JetBrains\PhpStorm\NoReturn;
+use Jorenvh\Share\Share;
 
 class CollectionController extends Controller
 {
@@ -41,9 +42,15 @@ class CollectionController extends Controller
         $item = Item::where('id', $id)->firstOrFail();
         $user = User::where('id', $item->user_id)->firstOrFail();
 
+        $shareButtons = (new Share)->currentPage()
+            ->facebook()
+            ->twitter()
+            ->whatsapp();
+
         return view('collection_item', [
             'user' => $user,
-            'item' => $item
+            'item' => $item,
+            'shareButtons' => $shareButtons
         ]);
     }
 }
