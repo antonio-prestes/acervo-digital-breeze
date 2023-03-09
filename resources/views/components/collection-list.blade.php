@@ -1,101 +1,15 @@
-<!--
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <div class="bg-white">
     <div>
-        <!--
-          Mobile filter dialog
-
-          Off-canvas filters for mobile, show/hide based on off-canvas filters state.
-        -->
-        <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
-            <!--
-              Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-
-              Entering: "transition-opacity ease-linear duration-300"
-                From: "opacity-0"
-                To: "opacity-100"
-              Leaving: "transition-opacity ease-linear duration-300"
-                From: "opacity-100"
-                To: "opacity-0"
-            -->
-            <div class="fixed inset-0 bg-black bg-opacity-25"></div>
-
-            <div class="fixed inset-0 z-40 flex">
-                <!--
-                  Off-canvas menu, show/hide based on off-canvas menu state.
-
-                  Entering: "transition ease-in-out duration-300 transform"
-                    From: "translate-x-full"
-                    To: "translate-x-0"
-                  Leaving: "transition ease-in-out duration-300 transform"
-                    From: "translate-x-0"
-                    To: "translate-x-full"
-                -->
-                <div
-                    class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
-                    <div class="flex items-center justify-between px-4">
-                        <h2 class="text-lg font-medium text-gray-900">Filters</h2>
-                        <button type="button"
-                                class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
-                            <span class="sr-only">Close menu</span>
-                            <!-- Heroicon name: outline/x-mark -->
-                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Filters -->
-                    <form class="mt-4 border-t border-gray-200">
-                        <h3 class="sr-only">Categories</h3>
-                        <ul role="list" class="px-2 py-3 font-medium text-gray-900">
-                            <li>
-                                <a href="#" class="block px-2 py-3">Totes</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="block px-2 py-3">Backpacks</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="block px-2 py-3">Travel Bags</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="block px-2 py-3">Hip Bags</a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="block px-2 py-3">Laptop Sleeves</a>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
-                <a class="text-4xl font-bold tracking-tight text-gray-900" href="{{route('collection.index', Route::input('user'))}}">Coleção</a>
+                <a class="text-4xl font-bold tracking-tight text-gray-900"
+                   href="{{route('collection.index', Route::input('user'))}}">Coleção</a>
             </div>
 
             <section aria-labelledby="products-heading" class="pt-6 pb-24">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4 sm:grid-cols-4">
                     <!-- Filters -->
-                    <form class="hidden lg:block">
+                    <form>
                         <h3 class="mb-4">Categorias</h3>
                         <ul role="list" class="border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                             @foreach($categories as $category)

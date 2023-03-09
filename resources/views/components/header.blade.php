@@ -1,59 +1,50 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="relative bg-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6">
-        <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-            <div class="flex justify-start lg:w-0 lg:flex-1">
-                <a href="/">
-                    <span class="sr-only">Your Company</span>
-                    <x-application-logo/>
-                </a>
-            </div>
-            <nav class="hidden space-x-10 md:flex">
-                <a href="{{route('home')}}" class="text-base font-medium text-gray-500 hover:text-gray-900">Home</a>
-                <a href="{{route('about')}}" class="text-base font-medium text-gray-500 hover:text-gray-900">Sobre</a>
-                <a href="{{route('contact')}}" class="text-base font-medium text-gray-500 hover:text-gray-900">Contato</a>
-            </nav>
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+    <div class="container flex flex-wrap items-center justify-between mx-auto mx-auto max-w-7xl">
+        <a href="/">
+            <x-application-logo/>
+        </a>
+        <div class="flex md:order-2">
             @if (Route::has('login'))
-                <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                    @auth
-                        <a href="{{route('dashboard')}}" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Dashboard</a>
-                    @else
-                        <a href="{{route('login')}}" class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Login</a>
-                    @endauth
-                </div>
+                @auth
+                    <a type="button" href="{{route('dashboard')}}"
+                       class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-blue-800">
+                        Dashboard
+                    </a>
+                @else
+                    <a type="button" href="{{route('login')}}"
+                       class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-blue-800">
+                        Login
+                    </a>
+                @endauth
             @endif
+            <button data-collapse-toggle="navbar-cta" type="button"
+                    class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-cta" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a href="{{route('home')}}"
+                       class="block py-2 pl-3 pr-4 text-white bg-indigo-700 rounded md:bg-transparent md:text-indigo-700 md:p-0 dark:text-white"
+                       aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="{{route('about')}}"
+                       class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Sobre</a>
+                </li>
+                <li>
+                    <a href="{{route('contact')}}"
+                       class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contato</a>
+                </li>
+            </ul>
         </div>
     </div>
-
-    <!--
-      Mobile menu, show/hide based on mobile menu state.
-
-      Entering: "duration-200 ease-out"
-        From: "opacity-0 scale-95"
-        To: "opacity-100 scale-100"
-      Leaving: "duration-100 ease-in"
-        From: "opacity-100 scale-100"
-        To: "opacity-0 scale-95"
-    -->
-    <div class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-        <div class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-            <div class="px-5 pt-5 pb-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <img class="h-8 w-auto" src="{{url('storage/books.svg')}}" alt="Your Company">
-                    </div>
-                    <div class="-mr-2">
-                        <button type="button" class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                            <span class="sr-only">Close menu</span>
-                            <!-- Heroicon name: outline/x-mark -->
-                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</nav>
