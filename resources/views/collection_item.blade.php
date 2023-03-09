@@ -8,9 +8,9 @@
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <!-- Share JS -->
 <script src="{{ asset('js/share.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Acervo Digital</title>
