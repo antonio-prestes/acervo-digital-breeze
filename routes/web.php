@@ -39,6 +39,7 @@ Route::controller(ItensController::class)->middleware(['auth', 'verified'])->gro
     Route::get('/collection/delete/{id}', 'delete')->name('collection.delete');
     Route::get('/collection/edit/{id}', 'edit')->name('collection.edit');
     Route::put('/collection/update/{id}', 'update')->name('collection.update');
+    Route::get('/collection/export', 'export')->name('collection.export');
 });
 
 Route::controller(UsersController::class)->middleware(['auth', 'verified', 'isAdmin'])->group(function (){

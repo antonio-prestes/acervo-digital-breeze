@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.1",
         "ext-pdo": "*",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "dompdf/dompdf": "^2.0",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "jorenvanhocht/laravel-share": "^4.2",
@@ -15,6 +17,7 @@
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.5",
+        "maatwebsite/excel": "^3.1",
         "mailjet/laravel-mailjet": "^3.0",
         "phpunit/php-code-coverage": "^9.2",
         "symfony/http-client": "^6.1",

@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         Jorenvh\Share\Providers\ShareServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...

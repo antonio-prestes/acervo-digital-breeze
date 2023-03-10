@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ItensExport;
 use App\Http\Requests\CollectionRequest;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use RuntimeException;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ItensController extends Controller
 {
@@ -86,4 +89,13 @@ class ItensController extends Controller
         Session::flash('message', 'Item editado com Sucesso!');
         return redirect(route('collection'));
     }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
+    {
+        return Excel::download(new ItensExport, 'itens.xlsx');
+    }
+
 }
