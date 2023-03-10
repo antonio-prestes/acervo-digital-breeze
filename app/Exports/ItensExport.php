@@ -18,7 +18,7 @@ class ItensExport implements FromCollection, WithHeadings
             $query = Item::where('user_id', $userId);
         }
 
-        return $query->get(['id', 'name', 'description', 'author', 'publishing_company', 'img_url']);
+        return $query->get(['id', 'title', 'description', 'author', 'publishing_company', 'img_url']);
     }
 
     public function headings(): array
