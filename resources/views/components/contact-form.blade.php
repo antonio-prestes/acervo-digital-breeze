@@ -1,5 +1,5 @@
 <!-- Container for demo purpose -->
-<div class="container my-24 px-6 mx-auto">
+<div class="container fluid max-w-7xl my-24 px-6 mx-auto">
 
     <!-- Section: Design Block -->
     <section class="mb-32 text-gray-800 sm:mx-4">

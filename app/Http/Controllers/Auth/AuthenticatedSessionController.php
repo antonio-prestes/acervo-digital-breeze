@@ -100,4 +100,50 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    public function user_can_authenticate_via_github()
+    {
+        // Simula a resposta do Github
+        $user = new SocialiteUser([
+            'id' => 1,
+            'email' => 'john@example.com',
+            'name' => 'John Doe',
+            'avatar' => 'https://github.com/john.png',
+        ]);
+        $mock = $this->mockSocialiteFacade('github', $user);
+
+        // Chama a rota de autenticação via Github
+        $this->get('/login/github/callback');
+
+        // Verifica se o usuário foi criado ou atualizado no banco de dados
+        $this->assertDatabaseHas('users', [
+            'email' => 'john@example.com',
+            'name' => 'John Doe',
+            'picture' => 'https://github.com/john.png',
+            'user' => 'john',
+        ]);
+
+        // Verifica se o usuário foi autenticado corretamente
+        $this->assertAuthenticatedAs(User::first());
+
+        // Verifica se o usuário é redirecionado para a página correta após a autenticação
+        $this->assertRedirect(route('dashboard'));
+
+        // Verifica se o mock foi chamado corretamente
+        $mock->shouldHaveReceived('user')->once();
+    }
+
+    /**
+     * Cria um mock da fachada Socialite para o provedor especificado.
+     *
+     * @param  string  $provider
+     * @param  mixed  $user
+     * @return MockInterface
+     */
+    protected function mockSocialiteFacade(string $provider, $user): MockInterface
+    {
+        $mock = Socialite::shouldReceive('driver')->with($provider)->andReturnSelf();
+        $mock->shouldReceive('user')->andReturn($user);
+        return $mock;
+    }
 }

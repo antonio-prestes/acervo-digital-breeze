@@ -15,7 +15,7 @@ class DashboardControllerTest extends TestCase
 
     public function testIndex()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['profile' => 'user']);
 
         Auth::login($user);
 

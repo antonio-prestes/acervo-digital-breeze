@@ -48,4 +48,24 @@ class CollectionControllerTest extends TestCase
 
         $this->assertInstanceOf(View::class, $response);
     }
+
+    public function testCategoryReturnsViewWithCorrectData()
+    {
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
+        $status = Status::factory()->create();
+
+        Item::factory()->create([
+            'user_id' => $user->id,
+            'category_id' => $category->id,
+            'status_id' => $status->id
+        ]);
+
+        $controller = new CollectionController();
+        $response = $controller->category($user->user, $category->id);
+
+        $this->assertInstanceOf(View::class, $response);
+        $this->assertEquals($user->user, $response->getData()['user']->user);
+        $this->assertEquals($category->id, $response->getData()['filteredItems']->first()->category_id);
+    }
 }
